@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/back/sample1" />
+    <file type="web" url="file://$PROJECT_DIR$/front/front-sample1" />
+    <file type="web" url="file://$PROJECT_DIR$/front/front-sample2-file" />
+    <file type="web" url="file://$PROJECT_DIR$/front/front-springBootFrontend" />
+    <file type="web" url="file://$PROJECT_DIR$/front/sample1-front" />
+    <file type="web" url="file://$PROJECT_DIR$/front/sample1-front1" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/back/sample1/pom.xml" />
+        <option value="$PROJECT_DIR$/front/front-sample1/pom.xml" />
+        <option value="$PROJECT_DIR$/front/front-sample2/pom.xml" />
+        <option value="$PROJECT_DIR$/front/front-sample2-file/pom.xml" />
+        <option value="$PROJECT_DIR$/front/front-springBootFrontend/pom.xml" />
+        <option value="$PROJECT_DIR$/back/sample2-file/pom.xml" />
+        <option value="$PROJECT_DIR$/back/sample3-db/pom.xml" />
+        <option value="$PROJECT_DIR$/back/springBootBackend/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

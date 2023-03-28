@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>bbslist</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="./jquery/jquery.twbsPagination.min.js"></script>
+
+<style type="text/css">
+.table th, .table td { 	text-align: center; 	vertical-align: middle!important; }
+</style>
+
+</head>
+<body>
+
+<h1>게시판</h1>
+
+<hr>
+
+<div align="center">
+
+<table style="margin-left: auto; margin-right: auto; margin-top: 3px; margin-bottom: 3px">
+	<tr>
+		<td style="padding-left: 3px">
+			<select class="custom-select" id="choice" name="choice">
+				<option selected>검색</option>
+				<option value="title">제목</option>
+				<option value="content">내용</option>
+				<option value="writer">작성자</option>
+			</select>
+		</td>
+		<td style="padding-left: 5px" class="align-middle">
+			<input type="text" class="form-control" id="search" name="search" onkeyup="enterKeyEvent()" placeholder="검색어" value="">
+		<td style="padding-left: 5px">
+			<span>
+				<button type="button" class="btn btn-primary" onclick="searchBtn()">검색</button>
+			</span>
+		</td>
+	</tr>
+</table>
+
+<br>
+
+<table class="table table-hover table-sm" style="width: 1000px">
+	<col width="70"><col width="600"><col width="100"><col width="150">
+	<thead>
+		<tr class="bg-primary" style="color: white;">
+			<th>번호</th><th>제목</th><th>조회수</th><th>작성자</th>
+		</tr>
+	</thead>
+	<tbody id="bbsBody">
+		
+	</tbody>
+</table>
+
+<br>
+	
+<div class="container">
+    <nav aria-label="Page navigation">
+        <ul class="pagination" id="pagination" style="justify-content:center"></ul>
+    </nav>
+</div>
+
+<a href="bbswrite.html">글쓰기</a>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {	
+	/*
+	$.ajax({
+		url:"http://localhost:3000/bbslist",
+		type:"get",
+		data:{ choice:"", search:"", pageNumber:0 },
+		success:function(map){
+			// alert(map);
+			// alert(JSON.stringify(map));
+			
+			let list = map.list;
+			// alert(list);
+			let pageBbs = map.pageBbs;
+			// alert(pageBbs);
+			
+			$.each(list, function (i, bbs) {
+				let str = "<tr>"
+							+	"<th>" + (i + 1) + "</th>"
+							+	"<td style='text-align: left;'>" + bbs.title + "</td>"
+							+	"<td>" + bbs.readcount + "</td>"
+							+	"<td>" + bbs.id + "</td>"
+						+ "</tr>"; 	
+				$("#bbsBody").append(str);
+			});			
+		}, 
+		error:function(){
+			alert('error');
+		}
+	});
+	*/	
+});
+
+getBbslist(0);
+
+
+function getBbslist( pn ) {
+	let choice = $("#choice").val();
+	let search = $("#search").val();
+	
+	$.ajax({
+		url:"http://localhost:3000/bbslist",
+		type:"get",
+		data:{ "choice":choice, "search":search, "pageNumber":pn },
+		success:function(map){
+			let list = map.list;
+			let pageBbs = map.pageBbs;
+			
+			$("#bbsBody").html("");
+			
+			$.each(list, function (i, bbs) {
+				let str = "<tr>"
+							+	"<th>" + (i + 1) + "</th>";
+					
+					if(bbs.del == 0){		
+						str +=	"<td style='text-align: left;'>" + getArrow(bbs.depth) 
+							          + "<a href='bbsdetail.html?seq=" + bbs.seq + "'>" + bbs.title + "</a></td>";
+					}else{
+						str +=	"<td><font color='#ff0000'>*** 이 글은 작성자에 의해서 삭제되었습니다 ***</font></td>	";
+					}   
+					
+					str +=		"<td>" + bbs.readcount + "</td>"
+							+	"<td>" + bbs.id + "</td>"
+						+ "</tr>"; 	
+				$("#bbsBody").append(str);
+			});	
+			
+			loadPaging(pageBbs, pn);
+		}, 
+		error:function(){
+			alert('error');
+		}
+	});
+}
+
+function searchBtn() {
+	getBbslist( 0 );
+}
+
+
+function loadPaging(pageBbs, pn) {
+	
+	$('#pagination').twbsPagination('destroy');
+	
+	$('#pagination').twbsPagination({
+		startPage: pn + 1,
+	    totalPages: pageBbs,
+	    visiblePages: 10,
+	    first:'<span srid-hidden="true">«</span>',
+	    prev:"이전",
+	    next:"다음",
+	    last:'<span srid-hidden="true">»</span>',
+	    initiateStartPageClick:false,   // onPageClick 자동실행되지 않도록
+	    onPageClick: function (event, page) {
+	        // alert(page);
+	        //let choice = document.getElementById('choice').value;
+			//let search = document.getElementById('search').value;
+	    	//location.href = "bbslist.do?choice=" + choice + "&search=" + search + "&pageNumber=" + (page-1);
+	    	
+	    	getBbslist( page-1 );
+	    }
+	});
+}
+
+function getArrow( depth ) {
+	let rs = "<img src='./images/arrow.png' width='20px' height='20px'/>&nbsp;";
+	let nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;";
+	
+	let ts = "";
+	for(i = 0;i < depth; i++){
+		ts += nbsp;
+	}
+	return depth==0?"":ts + rs;
+}
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

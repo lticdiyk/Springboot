@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/back/sample1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/sample2-file/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/sample3-db/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/back/springBootBackend/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-sample1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-sample1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-sample2-file/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-sample2-file/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-sample3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-sample3/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-springBootFrontend/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/front-springBootFrontend/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/sample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/sample/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/sample1-front1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front/sample1-front1/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<p id="demo"></p>
+
+<button type="button" onclick="btnclick()">hello</button>
+
+<script type="text/javascript">
+function btnclick() {	
+	
+	let xhttp = new XMLHttpRequest();	
+	xhttp.onreadystatechange = function () {
+		if(xhttp.readyState == 4 && xhttp.status == 200){
+			// document.getElementById("demo").innerText = xhttp.responseText;
+			
+			let json = JSON.parse(xhttp.responseText);
+			
+			document.getElementById("demo").innerText = json.name;
+		}		
+	}
+	
+	xhttp.open("get", "http://localhost:3000/human", true);
+	xhttp.send();
+	
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+

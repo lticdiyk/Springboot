@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body>
+
+<p id="demo"></p>
+
+<button type="button" id="btn">hello</button>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btn").click(function(){
+		
+		$.ajax({
+			url:"http://localhost:3000/test",
+			type:"get",
+			success:function(str){
+			//	alert('success');
+			
+				$("#demo").text(str);
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+		
+	});
+});
+</script>
+
+<br><br>
+
+번호:<h3 id="num"></h3>
+이름:<h3 id="name"></h3>
+주소:<h3 id="address"></h3>
+
+<button type="button" id="human">human</button>
+
+<script type="text/javascript">
+$("#human").click(function(){
+	
+	$.ajax({
+		url:"http://localhost:3000/human",
+		type:"get",
+		success:function(obj){
+			// alert('success');
+			// alert(JSON.stringify(obj));
+			$("#num").text(obj.number);
+			$("#name").text(obj.name);
+			$("#address").text(obj.address);
+		},
+		error:function(){
+			alert('error');
+		}		
+	});
+	
+});
+</script>
+
+<br><br>
+
+<h3 id="param"></h3>
+
+<button type="button" id="paramBtn">conn param</button>
+
+<script type="text/javascript">
+$("#paramBtn").click(function(){
+	
+	$.ajax({
+		url:"http://localhost:3000/conn_param",
+		type:"get",
+		data:{ "title":"제목입니다" },
+		success:function(str){
+			$("#param").text(str);
+		},
+		error:function(){
+			alert('error');
+		}
+	})
+	
+});
+</script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+

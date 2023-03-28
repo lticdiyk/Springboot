@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div align="center">
+
+<h2>부모글</h2>
+
+<table border="1">
+<col width="200"><col width="500">
+<tr>
+	<th>작성자</th>
+	<td id="id"></td>
+</tr>
+<tr>
+	<th>제목</th>
+	<td id="title"></td>
+</tr>
+<tr>
+	<th>작성일</th>
+	<td id="wdate"></td>
+</tr>
+<tr>
+	<th>조회수</th>
+	<td id="readcount"></td>
+</tr>
+<tr>
+	<th>내용</th>
+	<td>
+		<textarea rows="10" cols="50" id="content" readonly></textarea>
+	</td>
+</tr>
+</table>
+
+
+<h2>답글</h2>
+
+<form id="frm">
+<input type="hidden" id="seq" name="seq">
+
+<table border="1">
+<col width="200"><col width="500">
+<tr>
+	<th>아이디</th>
+	<td>
+		<input type="text" id="userId" name="id" size="50" readonly="readonly">
+	</td>
+</tr>
+<tr>
+	<th>제목</th>
+	<td>
+		<input type="text" name="title" size="50">
+	</td>	
+</tr>
+<tr>
+	<th>내용</th>
+	<td>
+		<textarea rows="10" cols="50" name="content"></textarea>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+		<input type="button" id="btn" value="작성완료">
+	</td>
+</tr>
+</table>
+</form>
+
+</div>
+
+<script type="text/javascript">
+const url = new URL(location.href);
+const urlParams = url.searchParams;
+const seq = urlParams.get("seq");
+// alert(seq);
+
+$.ajax({
+	url:"http://localhost:3000/getBbs",
+	type:"get",
+	data:{ "seq":seq },
+	success:function(bbs){
+		
+		$("#id").text(bbs.id);
+		document.getElementById("wdate").innerHTML = bbs.wdate;
+		$("#readcount").html(bbs.readcount);
+		$("#title").text(bbs.title);
+		$("#content").text(bbs.content);
+		
+		$("#seq").val(bbs.seq);  // 부모글 번호
+		
+		let login = JSON.parse(sessionStorage.getItem("login"));
+		$("#userId").val(login.id);		
+	},
+	error:function(){
+		alert('error');
+	}
+});
+
+$("#btn").click(function () {
+	
+	$.ajax({
+		url:"http://localhost:3000/answerBbs",
+		type:"post",
+		data:$("#frm").serialize(),
+		success:function(msg){
+			if(msg == "YES"){
+				alert("답글이 작성되었습니다");
+				location.href = "bbslist.html";
+			}else{
+				alert("답글이 작성이 되지 않았습니다");				
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});	
+});
+
+
+</script>
+
+
+</body>
+</html>
